@@ -39,8 +39,8 @@ if($action == 'signup'){
 	if($save)
 		echo $save;
 }
-if($action == "save_settings"){
-	$save = $crud->save_settings();
+if($action == "save_msg"){
+	$save = $crud->save_msg();
 	if($save)
 		echo $save;
 }

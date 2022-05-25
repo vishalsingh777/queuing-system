@@ -20,7 +20,7 @@ a {
 }
 
 a:hover {
-  color: #3291e6;
+  color: #fbb800;
   text-decoration: none;
 }
 
@@ -516,7 +516,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #hero .btn-get-started:hover {
-  background: #3291e6;
+  background: #fbb800;
 }
 
 @media (min-width: 1024px) {
@@ -1009,7 +1009,7 @@ section {
 }
 
 .services .icon-box:hover .icon::before {
-  background: #3291e6;
+  background: #fbb800;
 }
 
 .services .icon-box:hover h4 a, .services .icon-box:hover p {
@@ -1622,7 +1622,6 @@ nav#sidebar {
     z-index: 99;
     left: 0;
     width: 250px;
-    background: url(../../../assets/img/travel-cover.jpg);
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -1718,7 +1717,7 @@ span.stat-icons {
     font-style: italic;
 }
 hr.divider {
-    border-top-color: #007bff;
+    border-top-color: #fbb800;
     max-width: calc(30%);
 }
 span.select2-selection.select2-selection--single {

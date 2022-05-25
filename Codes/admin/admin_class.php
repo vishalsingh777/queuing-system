@@ -1,5 +1,6 @@
 <?php
 session_start();
+include('send_sms.php');
 ini_set('display_errors', 1);
 class Action
 {
@@ -83,13 +84,36 @@ class Action
         }
     }
     function delete_user()
-    {
+    { 
         extract($_POST);
         $delete = $this
             ->db
             ->query("DELETE FROM users where id = " . $id);
         if ($delete) return 1;
     }
+
+    function save_msg(){
+        extract($_POST);
+        $data =  " msg = '$msg' ";
+        
+        // echo "INSERT INTO system_settings set ".$data;
+        $chk = $this->db->query("SELECT * FROM msg_temp");
+        if($chk->num_rows > 0){
+            $save = $this->db->query("UPDATE msg_temp set ".$data);
+        }else{
+            $save = $this->db->query("INSERT INTO msg_temp set ".$data);
+        }
+        if($save){
+        $query = $this->db->query("SELECT * FROM msg_temp limit 1")->fetch_array();
+        foreach ($query as $key => $value) {
+            if(!is_numeric($key))
+                $_SESSION['setting_'.$key] = $value;
+        }
+
+            return 1;
+                }
+    }
+
     function signup()
     {
         extract($_POST);
@@ -213,7 +237,7 @@ class Action
         $data = " name = '$name' ";
         $data = " phone_number = '$phone_number' ";
         $data .= ", transaction_id = '$transaction_id' ";
-        $queue_no = 1001;
+        $queue_no = 1;
         $chk = $this
             ->db
             ->query("SELECT * FROM queue_list where transaction_id = $transaction_id and date(date_created) = '" . date("Y-m-d") . "' ")->num_rows;
@@ -291,6 +315,28 @@ class Action
                 {
                     if (!is_numeric($key)) $data[$key] = $value;
                 }
+                $queue_no = $data['queue_no'];
+                $phone_number = $data['phone_number'];
+                $queue_no = $data['queue_no'];
+                $nextId = $data['id'];
+                $nextId = $nextId + 1;
+
+                $smsQuery =  $this
+                ->db
+                ->query("SELECT q.* FROM queue_list q where  q.id = ". $nextId );
+                if ($smsQuery->num_rows > 0 )
+                {
+                    foreach ($smsQuery->fetch_array() as $keys => $values)
+                    {
+                        if (!is_numeric($keys)) $msgdata[$keys] = $values;
+                    }
+                    $phone_number = $msgdata['phone_number'];
+                    $queue_no = $msgdata['queue_no'];
+
+                    echo SendSms($phone_number,$queue_no);
+                }elseif ($queue_no == 1) {
+                    echo SendSms($phone_number,$queue_no);
+                }
                 return json_encode(array(
                     'status' => 1,
                     "data" => $data
@@ -306,7 +352,7 @@ class Action
         }
         else
         {
-            $data['queue_no'] = 'Done';
+            $data['queue_no'] = 'No More Queue Line';
             return json_encode(array(
                 'status' => 1,
                 "data" => $data

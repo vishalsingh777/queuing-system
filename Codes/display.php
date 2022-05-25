@@ -5,10 +5,16 @@
 		justify-content: center;
 		align-items: center;
 	}
-	a.btn.btn-sm.btn-success {
+	a.btn.btn-sm.btn-home {
     z-index: 99999;
+    background-color: #fbb800;
     position: fixed;
     left: 1rem;
+}
+
+
+.btn-home {
+	background-color: #fbb800;
 }
 </style>
 <?php include "admin/db_connect.php" ?>
@@ -40,7 +46,7 @@ function nserving()
     $conn->close();
 }
 ?>
-<a href="index.php" class="btn btn-sm btn-success"><i class="fa fa-home"></i> Home</a>
+<a href="index.php" class="btn btn-sm btn-home"><i class="fa fa-home"></i> Home</a>
 <div class="left-side">
 	<div class="col-md-10 offset-md-1">
 		<div class="card">

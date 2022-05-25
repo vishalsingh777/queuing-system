@@ -6,6 +6,63 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
   <title>Admin | Queuing System</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <style>
+      html, body {
+      display: flex;
+      justify-content: center;
+      font-family: Roboto, Arial, sans-serif;
+      font-size: 15px;
+      }
+      form {
+      border: 5px solid #f1f1f1;
+      }
+      input[type=text], input[type=password] {
+      width: 100%;
+      padding: 16px 8px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      }
+      button {
+      background-color: #fbb800;
+      color: white;
+      padding: 14px 0;
+      margin: 10px 0;
+      border: none;
+      cursor: grabbing;
+      width: 100%;
+      }
+      h1 {
+      text-align:center;
+      fone-size:18;
+      }
+      button:hover {
+      opacity: 0.8;
+      }
+      .formcontainer {
+      text-align: left;
+      margin: 24px 50px 12px;
+      }
+      .container {
+      padding: 16px 0;
+      text-align:left;
+      }
+      span.psw {
+      float: right;
+      padding-top: 0;
+      padding-right: 15px;
+      }
+      /* Change styles for span on extra small screens */
+      @media screen and (max-width: 300px) {
+      span.psw {
+      display: block;
+      float: none;
+      }
+    </style>
+  
  	
 
 <?php include('./header.php'); ?>
@@ -18,92 +75,22 @@ header("location:index.php?page=home");
 ?>
 
 </head>
-<style>
-	body{
-		width: 100%;
-	    height: calc(100%);
-	    /*background: #007bff;*/
-	}
-	main#main{
-		width:100%;
-		height: calc(100%);
-		background:white;
-	}
-	#login-right{
-		position: absolute;
-		right:0;
-		width:40%;
-		height: calc(100%);
-		background:white;
-		display: flex;
-		align-items: center;
-	}
-	#login-left{
-		position: absolute;
-		left:0;
-		width:60%;
-		height: calc(100%);
-		content:url(https://pbs.twimg.com/profile_images/1125959039345500161/wsaxjS4G_400x400.jpg);
-		display: flex;
-		align-items: center;
-		
-	}
-	#login-right .card{
-		margin: auto;
-		z-index: 1
-	}
-	.logo {
-    margin: auto;
-    font-size: 8rem;
-    background: white;
-    padding: .5em 0.7em;
-    border-radius: 50% 50%;
-    color: #000000b3;
-    z-index: 10;
-}
-div#login-right::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: calc(100%);
-    height: calc(100%);
-    background: #000000e0;
-}
 
-</style>
 
 <body>
 
 
-  <main id="main" class=" bg-dark">
-  		<div id="login-left">
-  			
-  		</div>
-
-  		<div id="login-right">
-  			<div class="card col-md-8">
-  				<div class="card-body">
-  						
-  					<form id="login-form" >
-  						<div class="form-group">
-  							<label for="username" class="control-label">Username</label>
-  							<input type="text" id="username" name="username" class="form-control">
-  						</div>
-  						<div class="form-group">
-  							<label for="password" class="control-label">Password</label>
-  							<input type="password" id="password" name="password" class="form-control">
-  						</div>
-  						<center><button class="btn-sm btn-block btn-wave col-md-4 btn-primary">Login</button></center>
-  					</form>
-  				</div>
-  			</div>
-  		</div>
-   
-
-  </main>
-
-  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+  <form id="login-form" >
+      <div class="formcontainer">
+      <hr/>
+      <div class="container">
+        <label for="username"><strong>Username</strong></label>
+        <input type="text" placeholder="Enter Username" name="username" required>
+        <label for="password"><strong>Password</strong></label>
+        <input type="password" placeholder="Enter Password" name="password" required>
+      </div>
+      <center><button class="submit-button">Login</button></center>
+    </form>
 
 
 </body>
@@ -136,3 +123,5 @@ div#login-right::before {
 	})
 </script>	
 </html>
+
+

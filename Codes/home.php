@@ -3,7 +3,7 @@
 	<div class="col-lg-12">
 		<div class="card bg-primary">
 			<div class="card-body">
-				<h3 class="text-center text-white"><b>Welcome to Queuing Management System</b></h3>
+				<h3 class="text-center text-white"><b>Welcome to Gain City Megastore @ Sungei Kadut</b></h3>
 			</div>
 		</div>
 		<div class="card mt-4">
