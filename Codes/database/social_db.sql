@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 01, 2020 at 11:00 AM
--- Server version: 10.4.14-MariaDB
--- PHP Version: 7.2.33
+-- Generation Time: May 25, 2022 at 10:50 AM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,22 +24,19 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `file_uploads`
+-- Table structure for table `msg_temp`
 --
 
-CREATE TABLE `file_uploads` (
-  `id` int(30) NOT NULL,
-  `file_path` text NOT NULL,
-  `date_uploaded` datetime NOT NULL DEFAULT current_timestamp()
+CREATE TABLE `msg_temp` (
+  `msg` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `file_uploads`
+-- Dumping data for table `msg_temp`
 --
 
-INSERT INTO `file_uploads` (`id`, `file_path`, `date_uploaded`) VALUES
-(14, '1601523300_loans.PNG', '2020-10-01 11:35:38'),
-(17, '1601535060_file_example_MP4_1280_10MG.mp4', '2020-10-01 14:51:52');
+INSERT INTO `msg_temp` (`msg`) VALUES
+('You are next in queue. Kindly proceed back to the showroom to be served');
 
 -- --------------------------------------------------------
 
@@ -51,28 +48,13 @@ CREATE TABLE `queue_list` (
   `id` int(30) NOT NULL,
   `name` text NOT NULL,
   `transaction_id` int(30) NOT NULL,
+  `phone_number` varchar(30) NOT NULL,
   `window_id` int(30) NOT NULL,
   `queue_no` varchar(50) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 0,
   `date_created` date NOT NULL DEFAULT current_timestamp(),
   `created_timestamp` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `queue_list`
---
-
-INSERT INTO `queue_list` (`id`, `name`, `transaction_id`, `window_id`, `queue_no`, `status`, `date_created`, `created_timestamp`) VALUES
-(1, 'John Smith', 1, 1, '1001', 1, '2020-10-01', '2020-10-01 16:13:33'),
-(2, 'adasda asd', 1, 1, '1002', 1, '2020-10-01', '2020-10-01 16:34:34'),
-(3, 'dfgdfdfgd', 2, 0, '1001', 1, '2020-10-01', '2020-10-01 16:11:19'),
-(4, 'asdasd', 2, 0, '1002', 0, '2020-10-01', '2020-10-01 15:30:53'),
-(5, 'John Smith', 2, 0, '1003', 0, '2020-10-01', '2020-10-01 15:31:31'),
-(6, 'asdasd', 2, 0, '1004', 0, '2020-10-01', '2020-10-01 15:32:03'),
-(7, 'George Wilson', 1, 1, '1003', 1, '2020-10-01', '2020-10-01 16:35:29'),
-(8, 'Sample Student', 2, 0, '1005', 0, '2020-10-01', '2020-10-01 15:38:34'),
-(9, 'asdasd asdasd', 1, 1, '1004', 1, '2020-10-01', '2020-10-01 16:37:33'),
-(10, 'asdasd', 1, 1, '1005', 1, '2020-10-01', '2020-10-01 16:59:48');
 
 -- --------------------------------------------------------
 
@@ -91,10 +73,7 @@ CREATE TABLE `transactions` (
 --
 
 INSERT INTO `transactions` (`id`, `name`, `status`) VALUES
-(1, 'Payments', 1),
-(2, 'Type 1', 1),
-(3, 'Type 2', 1),
-(4, 'Type 3', 1);
+(1, 'Sungei Kadut', 1);
 
 -- --------------------------------------------------------
 
@@ -114,18 +93,7 @@ CREATE TABLE `transaction_windows` (
 --
 
 INSERT INTO `transaction_windows` (`id`, `transaction_id`, `name`, `status`) VALUES
-(1, 1, 'Window 1', 1),
-(2, 2, 'Window 1', 1),
-(3, 3, 'Window 1', 1),
-(4, 4, 'Window 1', 1),
-(5, 1, 'Window 2', 1),
-(6, 2, 'Window 2', 1),
-(7, 3, 'Window 2', 1),
-(8, 4, 'Window 2', 1),
-(9, 1, 'Window 3', 1),
-(10, 2, 'Window 3', 1),
-(11, 3, 'Window 3', 1),
-(12, 4, 'Window 3', 1);
+(1, 1, 'Air-Con Queue System', 1);
 
 -- --------------------------------------------------------
 
@@ -148,18 +116,12 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `window_id`, `type`, `username`, `password`) VALUES
 (1, 'Administrator', 0, 1, 'admin', '0192023a7bbd73250516f069df18b500'),
-(3, 'staff1', 1, 2, 'staff1', '4d7d719ac0cf3d78ea8a94701913fe47'),
-(4, 'Staff 2', 2, 2, 'staff2', '8bc01711b8163ec3f2aa0688d12cdf3b');
+(3, 'Wallace', 1, 2, 'wallace', '53a82ed2b8e34e62272c9c7b3a2a6166'),
+(4, 'Joyce', 1, 2, 'joyce', '19053d1f43416ad98dd9443425753488');
 
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `file_uploads`
---
-ALTER TABLE `file_uploads`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `queue_list`
@@ -190,28 +152,22 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `file_uploads`
---
-ALTER TABLE `file_uploads`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
-
---
 -- AUTO_INCREMENT for table `queue_list`
 --
 ALTER TABLE `queue_list`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
 
 --
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `transaction_windows`
 --
 ALTER TABLE `transaction_windows`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `users`
